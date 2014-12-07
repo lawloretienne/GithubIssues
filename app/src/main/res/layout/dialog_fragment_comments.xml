@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.etiennelawlor.issues.views.CustomFontTextView
+        android:id="@+id/dialog_header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="Comments"
+        app:textFont="Roboto_Medium"
+        android:background="@color/primary"/>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="?attr/dividerHorizontal"
+        android:layout_below="@id/dialog_header"
+        />
+
+    <FrameLayout
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_below="@id/dialog_header">
+
+        <ProgressBar
+            android:id="@+id/pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.etiennelawlor.issues.views.CustomFontTextView
+            android:id="@+id/empty_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray19"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:text="No Comments"
+            app:textFont="Roboto_Medium"/>
+    </FrameLayout>
+
+</RelativeLayout>

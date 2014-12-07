@@ -1,0 +1,15 @@
+<resources>
+
+    <style name="ActionBar.Dark" parent="Theme.AppCompat.Light.DarkActionBar" >
+        <item name="background">?colorPrimary</item>
+        <item name="displayOptions">showTitle</item>
+        <item name="height">?actionBarSize</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">?colorPrimary</item>
+        <item name="colorPrimaryDark">?colorPrimaryDark</item>
+        <item name="colorAccent">?colorAccent</item>
+    </style>
+
+</resources>
