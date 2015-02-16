@@ -12,12 +12,7 @@ android {
         versionName "0.0.1"
     }
     signingConfigs {
-        release {
-            storeFile file('interapptiv3.keystore')
-            storePassword "senditallofit"
-            keyAlias 'quickreturn-release'
-            keyPassword "senditallofit"
-        }
+        release
     }
     buildTypes {
         release {
@@ -40,5 +35,14 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:21.0.2'
+    compile 'com.android.support:appcompat-v7:21.0.3'
 }
+
+// Extract signing info into a properties file
+def props = new Properties()
+props.load(new FileInputStream(project.file("signing.properties")))
+
+android.signingConfigs.release.storeFile project.file(props.keyStore)
+android.signingConfigs.release.storePassword props.keyStorePassword
+android.signingConfigs.release.keyAlias props.keyAlias
+android.signingConfigs.release.keyPassword props.keyAliasPassword
