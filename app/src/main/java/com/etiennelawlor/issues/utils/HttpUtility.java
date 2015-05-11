@@ -2,7 +2,6 @@ package com.etiennelawlor.issues.utils;
 
 import android.util.Log;
 
-import com.etiennelawlor.issues.Constants;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -27,10 +26,6 @@ public class HttpUtility {
     // and HttpUrlConnection handles this by default
     public static String downloadUrl(String myurl) throws IOException {
         InputStream is = null;
-        if(myurl.contains("?"))
-            myurl += "&access_token=" + Constants.ACCESS_TOKEN;
-        else
-            myurl += "?access_token=" + Constants.ACCESS_TOKEN;
 
         Log.d("", "myurl - "+myurl);
         URL url = new URL(myurl);

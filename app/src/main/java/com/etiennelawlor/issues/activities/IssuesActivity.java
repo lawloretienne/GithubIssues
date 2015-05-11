@@ -2,11 +2,12 @@ package com.etiennelawlor.issues.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.etiennelawlor.issues.R;
 import com.etiennelawlor.issues.fragments.IssuesFragment;
 
-public class IssuesActivity extends ActionBarActivity {
+public class IssuesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
