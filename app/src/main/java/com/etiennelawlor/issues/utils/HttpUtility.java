@@ -2,6 +2,8 @@ package com.etiennelawlor.issues.utils;
 
 import android.util.Log;
 
+import com.etiennelawlor.issues.Constants;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,8 +17,6 @@ import java.net.URL;
  */
 public class HttpUtility {
 
-    public static final String ACCESS_TOKEN = "58749e3006eb6f5b5e2ccd1bede67a305199f0c8";
-
     /** Initiates the fetch operation. */
     public static String loadFromNetwork(String urlString) throws IOException {
         String str = downloadUrl(urlString);
@@ -28,9 +28,9 @@ public class HttpUtility {
     public static String downloadUrl(String myurl) throws IOException {
         InputStream is = null;
         if(myurl.contains("?"))
-            myurl += "&access_token=" + ACCESS_TOKEN;
+            myurl += "&access_token=" + Constants.ACCESS_TOKEN;
         else
-            myurl += "?access_token=" + ACCESS_TOKEN;
+            myurl += "?access_token=" + Constants.ACCESS_TOKEN;
 
         Log.d("", "myurl - "+myurl);
         URL url = new URL(myurl);
