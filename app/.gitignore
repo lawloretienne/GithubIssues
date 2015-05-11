@@ -72,4 +72,4 @@ gradle-app.setting
 signing.properties
 interapptiv3.keystore
 
-app/src/main/java/com/etiennelawlor/issues/Constants.java
+main/java/com/etiennelawlor/issues/Constants.java
