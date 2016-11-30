@@ -3,25 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="?android:attr/selectableItemBackground">
 
-    <com.etiennelawlor.issues.views.CustomFontTextView
+    <com.etiennelawlor.issues.ui.CustomFontTextView
         android:id="@+id/title_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray19"
+        android:textColor="@color/primary_text"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:textSize="16sp"
-        app:textFont="Roboto_Black"/>
+        app:textFont="roboto_medium"/>
 
-    <com.etiennelawlor.issues.views.CustomFontTextView
-        android:id="@+id/body_tv"
-        android:layout_width="wrap_content"
+    <com.etiennelawlor.issues.ui.CustomFontTextView
+        android:id="@+id/subtitle_tv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="@color/gray16"
-        android:maxLength="140"
+        android:textColor="@color/secondary_text"
+        android:maxLines="3"
+        android:ellipsize="end"
         android:textSize="14sp"
-        app:textFont="Roboto_Regular"/>
+        app:textFont="roboto_regular"/>
 
 </LinearLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.etiennelawlor.issues.views.CustomFontTextView
+    <com.etiennelawlor.issues.ui.CustomFontTextView
         android:id="@+id/dialog_header"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -13,7 +13,7 @@
         android:textSize="20sp"
         android:gravity="center"
         android:text="Comments"
-        app:textFont="Roboto_Medium"
+        app:textFont="roboto_medium"
         android:background="@color/primary"/>
 
     <ListView
@@ -36,15 +36,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <com.etiennelawlor.issues.views.CustomFontTextView
+        <com.etiennelawlor.issues.ui.CustomFontTextView
             android:id="@+id/empty_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray19"
+            android:textColor="@color/primary_text"
             android:textSize="20sp"
             android:layout_gravity="center"
             android:text="No Comments"
-            app:textFont="Roboto_Medium"/>
+            app:textFont="roboto_medium"/>
     </FrameLayout>
 
 </RelativeLayout>

@@ -3,5 +3,9 @@
 
     <string name="app_name">Issues</string>
     <string name="connection_error">Connection failed. Try again later.</string>
+    <string name="content_desc">Content Description</string>
+    <string name="reload">Reload</string>
+    <string name="check_your_network_connection">Can\'t load data. Check your network connection.</string>
+
 
 </resources>

@@ -1,4 +1,4 @@
-package com.etiennelawlor.issues.utils;
+package com.etiennelawlor.issues.utilities;
 
 import android.util.Log;
 

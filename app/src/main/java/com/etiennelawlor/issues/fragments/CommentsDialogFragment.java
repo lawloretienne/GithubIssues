@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.etiennelawlor.issues.R;
 import com.etiennelawlor.issues.adapters.CommentsAdapter;
 import com.etiennelawlor.issues.models.Comment;
-import com.etiennelawlor.issues.utils.HttpUtility;
+import com.etiennelawlor.issues.utilities.HttpUtility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,16 +30,16 @@ import java.io.IOException;
 public class CommentsDialogFragment extends DialogFragment implements AbsListView.OnScrollListener {
 
     //region Member Variables
-    private int mIssueNumber;
-    private ListView mListView;
-    private FrameLayout mEmptyFrameLayout;
-    private TextView mEmptyTextView;
-    private ProgressBar mProgressBar;
-    private int mPageNumber = 1;
-    private int mPrevFirstVisibleItem = 0;
-    private boolean mIsLoading = false;
-    private CommentsAdapter mCommentsAdapter;
-    private View mLoadingFooterView;
+    private int issueNumber;
+    private ListView listView;
+    private FrameLayout emptyFrameLayout;
+    private TextView emptyTextView;
+    private ProgressBar progressBar;
+    private int pageNumber = 1;
+    private int prevFirstVisibleItem = 0;
+    private boolean isLoading = false;
+    private CommentsAdapter commentsAdapter;
+    private View loadingFooterView;
     //endregion
 
     // region Constructors
@@ -61,7 +61,7 @@ public class CommentsDialogFragment extends DialogFragment implements AbsListVie
         Bundle bundle = getArguments();
 
         if (bundle != null) {
-            mIssueNumber = (Integer) bundle.get("issue_number");
+            issueNumber = (Integer) bundle.get("issue_number");
         }
 
 //        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.DialogTheme);
@@ -70,7 +70,7 @@ public class CommentsDialogFragment extends DialogFragment implements AbsListVie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.dialog_fragment_comments, container);
-        mLoadingFooterView = inflater.inflate(R.layout.loading_footer, container, false);
+        loadingFooterView = inflater.inflate(R.layout.loading_footer, container, false);
         return rootView;
     }
 
@@ -81,12 +81,11 @@ public class CommentsDialogFragment extends DialogFragment implements AbsListVie
 
         bindUIElements(view);
 
-        mCommentsAdapter = new CommentsAdapter(getActivity());
-        mListView.setAdapter(mCommentsAdapter);
-        mListView.setOnScrollListener(this);
-//        mListView.setEmptyView(mEmptyFrameLayout);
+        commentsAdapter = new CommentsAdapter(getActivity());
+        listView.setAdapter(commentsAdapter);
+        listView.setOnScrollListener(this);
 
-        String commentsUrl = String.format("https://api.github.com/repos/rails/rails/issues/%d/comments?page=%d", mIssueNumber, mPageNumber);
+        String commentsUrl = String.format("https://api.github.com/repos/rails/rails/issues/%d/comments?page=%d", issueNumber, pageNumber);
 
         new DownloadTask().execute(commentsUrl);
 
@@ -101,8 +100,8 @@ public class CommentsDialogFragment extends DialogFragment implements AbsListVie
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if (!mIsLoading && totalItemCount > 0 && (firstVisibleItem + visibleItemCount == totalItemCount) && firstVisibleItem>mPrevFirstVisibleItem+1) {
-            mPrevFirstVisibleItem = firstVisibleItem;
+        if (!isLoading && totalItemCount > 0 && (firstVisibleItem + visibleItemCount == totalItemCount) && firstVisibleItem>prevFirstVisibleItem+1) {
+            prevFirstVisibleItem = firstVisibleItem;
 
             loadMoreItems();
         }
@@ -111,20 +110,20 @@ public class CommentsDialogFragment extends DialogFragment implements AbsListVie
 
     // region Helper Methods
     private void bindUIElements(View view) {
-        mListView = (ListView) view.findViewById(android.R.id.list);
-        mEmptyFrameLayout = (FrameLayout) view.findViewById(android.R.id.empty);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.pb);
-        mEmptyTextView = (TextView) view.findViewById(R.id.empty_tv);
+        listView = (ListView) view.findViewById(android.R.id.list);
+        emptyFrameLayout = (FrameLayout) view.findViewById(android.R.id.empty);
+        progressBar = (ProgressBar) view.findViewById(R.id.pb);
+        emptyTextView = (TextView) view.findViewById(R.id.empty_tv);
     }
 
     private void loadMoreItems(){
-        mIsLoading = true;
+        isLoading = true;
 
-        mPageNumber += 1;
+        pageNumber += 1;
 
-        mListView.addFooterView(mLoadingFooterView);
+        listView.addFooterView(loadingFooterView);
 
-        String commentsUrl = String.format("https://api.github.com/repos/rails/rails/issues/%d/comments?page=%d", mIssueNumber, mPageNumber);
+        String commentsUrl = String.format("https://api.github.com/repos/rails/rails/issues/%d/comments?page=%d", issueNumber, pageNumber);
 
         new DownloadTask().execute(commentsUrl);
     }
@@ -137,8 +136,8 @@ public class CommentsDialogFragment extends DialogFragment implements AbsListVie
         protected void onPreExecute() {
             super.onPreExecute();
 
-            mEmptyTextView.setVisibility(View.GONE);
-            mProgressBar.setVisibility(View.VISIBLE);
+            emptyTextView.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -153,10 +152,10 @@ public class CommentsDialogFragment extends DialogFragment implements AbsListVie
         @Override
         protected void onPostExecute(String result) {
             if(isAdded() && isResumed()){
-                mIsLoading = false;
-                mListView.removeFooterView(mLoadingFooterView);
+                isLoading = false;
+                listView.removeFooterView(loadingFooterView);
 
-                mProgressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
 
                 if(result.equals(getString(R.string.connection_error)))
                     return;
@@ -165,10 +164,10 @@ public class CommentsDialogFragment extends DialogFragment implements AbsListVie
                 try {
                     comments = new JSONArray(result);
                     if(comments != null){
-                        if(comments.length() == 0 && mCommentsAdapter.isEmpty()){
-                            mEmptyTextView.setVisibility(View.VISIBLE);
+                        if(comments.length() == 0 && commentsAdapter.isEmpty()){
+                            emptyTextView.setVisibility(View.VISIBLE);
                         } else {
-                            mEmptyTextView.setVisibility(View.GONE);
+                            emptyTextView.setVisibility(View.GONE);
 
                             for(int i = 0 ; i < comments.length(); i++){
                                 JSONObject jsonObject = (JSONObject) comments.get(i);
@@ -179,7 +178,7 @@ public class CommentsDialogFragment extends DialogFragment implements AbsListVie
                                     String userName = (String) userJsonObject.get("login");
 
                                     Comment comment = new Comment(userName, body);
-                                    mCommentsAdapter.add(comment);
+                                    commentsAdapter.add(comment);
                                 }
                             }
                         }

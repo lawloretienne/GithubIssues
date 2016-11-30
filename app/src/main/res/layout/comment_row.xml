@@ -6,21 +6,21 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <com.etiennelawlor.issues.views.CustomFontTextView
+    <com.etiennelawlor.issues.ui.CustomFontTextView
         android:id="@+id/username_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray19"
+        android:textColor="@color/primary_text"
         android:textSize="16sp"
-        app:textFont="Roboto_Black"/>
+        app:textFont="roboto_medium"/>
 
-    <com.etiennelawlor.issues.views.CustomFontTextView
+    <com.etiennelawlor.issues.ui.CustomFontTextView
         android:id="@+id/body_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="@color/gray16"
+        android:textColor="@color/secondary_text"
         android:textSize="14sp"
-        app:textFont="Roboto_Regular"/>
+        app:textFont="roboto_regular"/>
 
 </LinearLayout>

@@ -6,44 +6,69 @@ package com.etiennelawlor.issues.models;
 public class Issue {
 
     // region Member Variables
-    private String mTitle;
-    private String mBody;
-    private int mNumber;
+    private String title;
+    private String body;
+    private int number;
+    private String createdAt;
+    private String updatedAt;
+    private User user;
     // endregion
 
     // region Constructors
-    public Issue(String title, String body, int number){
-        mTitle = title;
-        mBody = body;
-        mNumber = number;
-    }
+    public Issue(){}
     // endregion
 
     // region Getters
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     public String getBody() {
-        return mBody;
+        return body;
     }
 
     public int getNumber() {
-        return mNumber;
+        return number;
     }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     // endregion
 
     // region Setters
     public void setTitle(String title) {
-        mTitle = title;
+        this.title = title;
     }
 
     public void setBody(String body) {
-        mBody = body;
+        this.body = body;
     }
 
     public void setNumber(int number) {
-        mNumber = number;
+        this.number = number;
     }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     // endregion
 }

@@ -6,34 +6,34 @@ package com.etiennelawlor.issues.models;
 public class Comment {
 
     // region Member Variables
-    private String mUserName;
-    private String mBody;
+    private String userName;
+    private String body;
     // endregion
 
     // region Constructors
     public Comment(String userName, String body){
-        mUserName = userName;
-        mBody = body;
+        this.userName = userName;
+        this.body = body;
     }
     // endregion
 
     // region Getters
     public String getUserName() {
-        return mUserName;
+        return userName;
     }
 
     public String getBody() {
-        return mBody;
+        return body;
     }
     // endregion
 
     // region Setters
     public void setUserName(String userName) {
-        mUserName = userName;
+        this.userName = userName;
     }
 
     public void setBody(String body) {
-        mBody = body;
+        this.body = body;
     }
     // endregion
 }
