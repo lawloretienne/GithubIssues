@@ -1,4 +1,4 @@
-Github-Issues
+GithubIssues
 =============
 
 Views the most recently updated open issues and their comments in the
