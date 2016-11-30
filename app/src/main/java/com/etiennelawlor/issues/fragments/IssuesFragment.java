@@ -37,7 +37,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IssuesFragment extends Fragment implements IssuesAdapter.OnItemClickListener {
+public class IssuesFragment extends Fragment implements IssuesAdapter.OnItemClickListener, IssuesAdapter.OnReloadClickListener {
 
     // region Constants
     public static final int PAGE_SIZE = 30;
@@ -146,6 +146,7 @@ public class IssuesFragment extends Fragment implements IssuesAdapter.OnItemClic
 
         issuesAdapter = new IssuesAdapter();
         issuesAdapter.setOnItemClickListener(this);
+        issuesAdapter.setOnReloadClickListener(this);
         recyclerView.setAdapter(issuesAdapter);
 
         // Pagination
@@ -174,6 +175,18 @@ public class IssuesFragment extends Fragment implements IssuesAdapter.OnItemClic
             CommentsDialogFragment dialogFragment = CommentsDialogFragment.newInstance(bundle);
             dialogFragment.show(getFragmentManager(),"");
         }
+    }
+
+    // endregion
+
+    // region IssuesAdapter.OnReloadClickListener Methods
+
+    @Override
+    public void onReloadClick() {
+        issuesAdapter.updateFooter(IssuesAdapter.FooterType.LOAD_MORE);
+
+        String issuesUrl = String.format("%s&page=%d", ISSUES_URL, pageNumber);
+        new NextFetchDownloadTask().execute(issuesUrl);
     }
 
     // endregion
@@ -320,11 +333,13 @@ public class IssuesFragment extends Fragment implements IssuesAdapter.OnItemClic
         @Override
         protected void onPostExecute(String result) {
             if(isAdded() && isResumed()){
+                if(result.equals(getString(R.string.connection_error))) {
+                    issuesAdapter.updateFooter(IssuesAdapter.FooterType.ERROR);
+                    return;
+                }
+
                 isLoading = false;
                 issuesAdapter.removeFooter();
-
-                if(result.equals(getString(R.string.connection_error)))
-                    return;
 
                 List<Issue> issues = parseJson(result);
                 issuesAdapter.addAll(issues);
