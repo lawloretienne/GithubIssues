@@ -298,12 +298,15 @@ public class IssuesFragment extends Fragment implements IssuesAdapter.OnItemClic
                 }
 
                 List<Issue> issues = parseJson(result);
-                issuesAdapter.addAll(issues);
+                if(issues != null){
+                    if(issues.size()>0)
+                        issuesAdapter.addAll(issues);
 
-                if (issues.size() >= PAGE_SIZE) {
-                    issuesAdapter.addFooter();
-                } else {
-                    isLastPage = true;
+                    if (issues.size() >= PAGE_SIZE) {
+                        issuesAdapter.addFooter();
+                    } else {
+                        isLastPage = true;
+                    }
                 }
 
                 if (issuesAdapter.isEmpty()) {
@@ -342,15 +345,17 @@ public class IssuesFragment extends Fragment implements IssuesAdapter.OnItemClic
                 issuesAdapter.removeFooter();
 
                 List<Issue> issues = parseJson(result);
-                issuesAdapter.addAll(issues);
+                if(issues != null){
+                    if(issues.size()>0)
+                        issuesAdapter.addAll(issues);
 
-                if (issues.size() >= PAGE_SIZE) {
-                    issuesAdapter.addFooter();
-                } else {
-                    isLastPage = true;
+                    if (issues.size() >= PAGE_SIZE) {
+                        issuesAdapter.addFooter();
+                    } else {
+                        isLastPage = true;
+                    }
                 }
             }
-
         }
     }
 
