@@ -17,6 +17,7 @@ import com.etiennelawlor.issues.models.User;
 import com.etiennelawlor.issues.utilities.DateUtility;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -138,9 +139,9 @@ public class IssuesAdapter extends BaseAdapter<Issue> {
     private void setUpSubtitle(TextView tv, Issue issue) {
         int number = issue.getNumber();
         String createdAt = issue.getCreatedAt();
-        String formatedCreatedAt = DateUtility.getFormattedDate(createdAt);
+        String formatedCreatedAt = DateUtility.getFormattedTime(DateUtility.getCalendar(createdAt), DateUtility.FORMAT_RELATIVE);
         String updatedAt = issue.getUpdatedAt();
-        String formatedUpdatedAt = DateUtility.getFormattedDate(updatedAt);
+        String formatedUpdatedAt = DateUtility.getFormattedTime(DateUtility.getCalendar(updatedAt), DateUtility.FORMAT_RELATIVE);
 
         User user = issue.getUser();
         String login = user.getLogin();
