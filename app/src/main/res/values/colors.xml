@@ -6,6 +6,6 @@
     <color name="primary">@color/green_500</color>
     <!--<color name="control_highlight">#1f8755</color>-->
     <color name="primary_dark">@color/green_700</color>
-    <color name="accent">@color/cyan_500</color>
+    <color name="accent">@color/cyan_A400</color>
 
 </resources>

@@ -1,9 +1,15 @@
 package com.etiennelawlor.issues.models;
 
+import com.etiennelawlor.issues.utilities.DateUtility;
+
 /**
  * Created by etiennelawlor on 12/6/14.
  */
 public class Issue {
+
+    // region Constants
+    public static final String PATTERN = "yyyy-MM-dd'T'hh:mm:ss'Z'";
+    // endregion
 
     // region Member Variables
     private String title;
@@ -41,6 +47,16 @@ public class Issue {
 
     public User getUser() {
         return user;
+    }
+
+    public String getFormatedCreatedAt(){
+        String formatedCreatedAt = DateUtility.getFormattedDateAndTime(DateUtility.getCalendar(createdAt, PATTERN), DateUtility.FORMAT_RELATIVE);
+        return formatedCreatedAt;
+    }
+
+    public String getFormatedUpdatedAt(){
+        String formatedUpdatedAt = DateUtility.getFormattedDateAndTime(DateUtility.getCalendar(updatedAt, PATTERN), DateUtility.FORMAT_RELATIVE);
+        return formatedUpdatedAt;
     }
 
     // endregion

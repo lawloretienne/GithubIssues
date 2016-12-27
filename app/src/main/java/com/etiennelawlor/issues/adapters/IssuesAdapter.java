@@ -91,8 +91,7 @@ public class IssuesAdapter extends BaseAdapter<Issue> {
 
         final Issue issue = getItem(position);
         if (issue != null) {
-            setUpTitle(holder.titleTextView, issue);
-            setUpSubtitle(holder.subtitleTextView, issue);
+            holder.bind(issue);
         }
     }
 
@@ -124,27 +123,6 @@ public class IssuesAdapter extends BaseAdapter<Issue> {
         add(new Issue());
     }
 
-    // region Helper Methods
-    private void setUpTitle(TextView tv, Issue issue) {
-        String title = issue.getTitle();
-        if (!TextUtils.isEmpty(title)) {
-            tv.setText(title);
-        }
-    }
-
-    private void setUpSubtitle(TextView tv, Issue issue) {
-        int number = issue.getNumber();
-        String createdAt = issue.getCreatedAt();
-        String formatedCreatedAt = DateUtility.getFormattedDateAndTime(DateUtility.getCalendar(createdAt, PATTERN), DateUtility.FORMAT_RELATIVE);
-        String updatedAt = issue.getUpdatedAt();
-        String formatedUpdatedAt = DateUtility.getFormattedDateAndTime(DateUtility.getCalendar(updatedAt, PATTERN), DateUtility.FORMAT_RELATIVE);
-
-        User user = issue.getUser();
-        String login = user.getLogin();
-        tv.setText(String.format("#%d opened %s by %s updated %s", number, formatedCreatedAt, login, formatedUpdatedAt));
-    }
-    // endregion
-
     // region Inner Classes
 
     public static class HeaderViewHolder extends RecyclerView.ViewHolder {
@@ -165,6 +143,30 @@ public class IssuesAdapter extends BaseAdapter<Issue> {
 
             titleTextView = (TextView) view.findViewById(R.id.title_tv);
             subtitleTextView = (TextView) view.findViewById(R.id.subtitle_tv);
+        }
+        // endregion
+
+        // region Helper Methods
+        private void bind(Issue issue){
+            setUpTitle(titleTextView, issue);
+            setUpSubtitle(subtitleTextView, issue);
+        }
+
+        private void setUpTitle(TextView tv, Issue issue) {
+            String title = issue.getTitle();
+            if (!TextUtils.isEmpty(title)) {
+                tv.setText(title);
+            }
+        }
+
+        private void setUpSubtitle(TextView tv, Issue issue) {
+            int number = issue.getNumber();
+            String formatedCreatedAt = issue.getFormatedCreatedAt();
+            String formatedUpdatedAt = issue.getFormatedUpdatedAt();
+
+            User user = issue.getUser();
+            String login = user.getLogin();
+            tv.setText(String.format("#%d opened %s by %s updated %s", number, formatedCreatedAt, login, formatedUpdatedAt));
         }
         // endregion
     }
